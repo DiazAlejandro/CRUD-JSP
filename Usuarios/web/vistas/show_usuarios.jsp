@@ -17,6 +17,7 @@
     </head>
     <body>
         <h1>lISTA DE LOS USUARIOS REGISTRADOS</h1>
+        <a href="Controller?accion=add">AGREGAR USUARIO</a>
         <table border="1">
             <thead>
                 <tr>
@@ -53,7 +54,6 @@
                     <td><%= user1.getCelular() %></td>
                 </tr>
                 <%}%>
-                
             </tbody>
         </table>
 

@@ -13,17 +13,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author ALEJANDRO DIAZ
  */
 public class Controller extends HttpServlet {
+
     String listar = "vistas/show_usuarios.jsp";
     String add = "vistas/add_usuario.jsp";
     String edit = "vistas/edit_usuario.jsp";
     Usuario usuario = new Usuario();
     UsuarioDAO usuarioDAO = new UsuarioDAO();
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,7 +50,7 @@ public class Controller extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Controller</title>");            
+            out.println("<title>Servlet Controller</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Controller at " + request.getContextPath() + "</h1>");
@@ -64,8 +73,40 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
         String acceso = "";
         String action = request.getParameter("accion");
-        if (action.equalsIgnoreCase("listar")){
+        if (action.equalsIgnoreCase("listar")) {
             acceso = listar;
+        } else if (action.equalsIgnoreCase("add")) {
+            acceso = add;
+        } else if (action.equalsIgnoreCase("agregar")) {
+            String nombre = request.getParameter("txt_nombre");
+            String correo = request.getParameter("txt_correo");
+            String matricula = request.getParameter("txt_matricula");
+            String apellidos = request.getParameter("txt_apellidos");
+            String celular = request.getParameter("txt_celular");
+            String fecha = request.getParameter("txt_fecha_nac");
+            
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            Date fechaFinal = null;
+            try {
+                fechaFinal = formato.parse(fecha);
+            } catch (ParseException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            System.out.println("Fecha:******"+fecha);
+
+            usuario.setApellidos(apellidos);
+            usuario.setCelular(celular);
+            usuario.setCorreo(correo);
+            usuario.setFecha_nac(fechaFinal);
+            usuario.setMatricula(matricula);
+            usuario.setNombre(nombre);
+
+            usuarioDAO.agregarUsuario(usuario);
+
+            response.sendRedirect(request.getContextPath() + "/Controller?accion=listar");
+            return;
+
         }
         RequestDispatcher vista = request.getRequestDispatcher(acceso);
         vista.forward(request, response);
