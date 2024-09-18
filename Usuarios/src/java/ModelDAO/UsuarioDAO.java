@@ -49,7 +49,27 @@ public class UsuarioDAO implements CrudUsuario{
 
     @Override
     public Usuario mostrarUsuario(String matricula) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "select * from usuario where matricula = "+matricula; 
+                Usuario usuario = new Usuario();
+        try {
+            conn = conexion.getConnectionBD();
+            ps  = conn.prepareStatement(sql);
+            rs  = ps.executeQuery();
+            while(rs.next()){
+                usuario.setApellidos(rs.getString("apellidos"));
+                usuario.setCelular(rs.getString("celular"));
+                usuario.setCorreo(rs.getString("correo"));
+                usuario.setFecha_nac(rs.getDate("fecha_nac"));
+                usuario.setHora(rs.getTime("hora"));
+                usuario.setMatricula(rs.getString("matricula"));
+                usuario.setNombre(rs.getString("nombre"));
+                
+            }
+        } catch (Exception e) {
+            System.err.println("Error: "+e);
+        }
+        
+        return usuario;
     }
 
     @Override
@@ -72,7 +92,24 @@ public class UsuarioDAO implements CrudUsuario{
 
     @Override
     public Boolean editarUsuario(Usuario usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //apellidos, celular, correo, ""fecha_nac, matricula, nombre, hora
+        String sql = "UPDATE usuario SET apellidos = '"+usuario.getApellidos()+
+                "', celular = '"+usuario.getCelular()+
+                "', fecha_nac = '"+usuario.getFecha_nac()+
+                "', nombre = '"+usuario.getNombre()+
+                "', hora = '"+usuario.getHora()+
+                "', correo = '"+usuario.getCorreo()+
+                "' WHERE matricula like '"+usuario.getMatricula()+"'";
+        System.out.println("SQL: ***" + sql);
+        try {
+            conn = conexion.getConnectionBD();
+            ps = conn.prepareStatement(sql);
+            ps.executeUpdate();
+            
+        } catch (Exception e) {
+            System.out.println("Error al actualizar usuario: "+e);
+        }
+        return false;
     }
 
     @Override

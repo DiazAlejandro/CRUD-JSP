@@ -96,6 +96,33 @@ public class Controller extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/Controller?accion=listar");
             return;
 
+        }else if (action.equalsIgnoreCase("editar")){
+            request.setAttribute("matricula", request.getParameter("matricula"));
+            acceso = edit;
+        }else if (action.equalsIgnoreCase("actualizar")){
+            String nombre = request.getParameter("txt_nombre");
+            String correo = request.getParameter("txt_correo");
+            String matricula = request.getParameter("txt_matricula");
+            String apellidos = request.getParameter("txt_apellidos");
+            String celular = request.getParameter("txt_celular");
+            String fecha = request.getParameter("txt_fecha_nac");
+            String hora = request.getParameter("txt_hora");
+            
+            Date fechaFinal = Date.valueOf(fecha);
+            Time horaFinal = Time.valueOf(hora);
+            
+            usuario.setApellidos(apellidos);
+            usuario.setCelular(celular);
+            usuario.setCorreo(correo);
+            usuario.setFecha_nac(fechaFinal);
+            usuario.setHora(horaFinal);
+            usuario.setNombre(nombre);
+            usuario.setMatricula(matricula);
+            
+            usuarioDAO.editarUsuario(usuario);
+            
+            response.sendRedirect(request.getContextPath()+"/Controller?accion=listar");
+            return;
         }
         RequestDispatcher vista = request.getRequestDispatcher(acceso);
         vista.forward(request, response);

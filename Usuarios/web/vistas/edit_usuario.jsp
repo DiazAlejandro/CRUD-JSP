@@ -4,6 +4,8 @@
     Author     : RUFINA RUIZ
 --%>
 
+<%@page import="Model.Usuario"%>
+<%@page import="ModelDAO.UsuarioDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +14,28 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <%
+            UsuarioDAO usuariodao = new UsuarioDAO();
+            String matricula = (String)request.getAttribute("matricula");
+            Usuario usuario = (Usuario)usuariodao.mostrarUsuario(matricula);
+        %>
+        <h1>Modificar Usuario</h1>
+        <form action="Controller">
+            MATRICULA: <br>
+            <input type="hidden" name="txt_matricula" value="<%= usuario.getMatricula()%>"> <br> 
+            APELLIDO: <br>
+            <input type="text" name="txt_apellidos" value="<%= usuario.getApellidos()%>"> <br> 
+            NOMBRE: <br>
+            <input type="text" name="txt_nombre" value="<%= usuario.getNombre()%>"> <br> 
+            CELULAR: <br>
+            <input type="tel" name="txt_celular" value="<%= usuario.getCelular()%>"> <br> 
+            CORREO: <br>
+            <input type="text" name="txt_correo" value="<%= usuario.getCorreo()%>"> <br> 
+            FECHA_NACIMIENTO: <br>
+            <input type="date" name="txt_fecha_nac" value="<%= usuario.getFecha_nac()%>"> <br> 
+            HORA: <br>
+            <input type="time" name="txt_hora" value="<%= usuario.getHora()%>"> <br> 
+            <input type="submit" name="accion" value="actualizar">
+        </form>
     </body>
 </html>
