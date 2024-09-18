@@ -27,6 +27,7 @@
                     <th>MATRICULA</th>
                     <th>CELULAR</th>
                     <th>FECHA DE NACIMIENTO</th>
+                    <th>HORA</th>
                 </tr>
             </thead>
             <%
@@ -52,6 +53,7 @@
                     <td><%= user1.getMatricula() %></td>
                     <td><%= user1.getFecha_nac() %></td>
                     <td><%= user1.getCelular() %></td>
+                    <td><%= user1.getHora()%></td>
                 </tr>
                 <%}%>
             </tbody>

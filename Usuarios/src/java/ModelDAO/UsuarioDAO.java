@@ -37,7 +37,7 @@ public class UsuarioDAO implements CrudUsuario{
                 usuario.setFecha_nac(rs.getDate("fecha_nac"));
                 usuario.setMatricula(rs.getString("matricula"));
                 usuario.setNombre(rs.getString("nombre"));
-                
+                usuario.setHora(rs.getTime("hora"));
                 listaUsarios.add(usuario);
             }
         } catch (Exception e) {
@@ -55,10 +55,10 @@ public class UsuarioDAO implements CrudUsuario{
     @Override
     public Boolean agregarUsuario(Usuario usuario) {
         String sql = "INSERT INTO usuario (apellidos, celular, correo, "+
-                "fecha_nac, matricula, nombre) VALUES ('"+usuario.getApellidos()+"','"+
+                "fecha_nac, matricula, nombre, hora) VALUES ('"+usuario.getApellidos()+"','"+
                 usuario.getCelular()+"','"+usuario.getCorreo()+"','"+
                 usuario.getFecha_nac()+"','"+usuario.getMatricula()+"','"+
-                usuario.getNombre()+"')";
+                usuario.getNombre()+"','"+usuario.getHora()+"')";
         
         try {
             conn = conexion.getConnectionBD();

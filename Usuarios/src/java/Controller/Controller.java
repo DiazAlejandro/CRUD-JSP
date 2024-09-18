@@ -13,13 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.sql.Date;
+import java.sql.Time;
 
 /**
  *
@@ -84,24 +79,18 @@ public class Controller extends HttpServlet {
             String apellidos = request.getParameter("txt_apellidos");
             String celular = request.getParameter("txt_celular");
             String fecha = request.getParameter("txt_fecha_nac");
-            
-            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-            Date fechaFinal = null;
-            try {
-                fechaFinal = formato.parse(fecha);
-            } catch (ParseException ex) {
-                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            System.out.println("Fecha:******"+fecha);
+            String hora = request.getParameter("txt_hora");
 
+            Date fechaFinal = Date.valueOf(fecha);
+            Time horaFinal = Time.valueOf(hora+":00");
+            
             usuario.setApellidos(apellidos);
             usuario.setCelular(celular);
             usuario.setCorreo(correo);
             usuario.setFecha_nac(fechaFinal);
             usuario.setMatricula(matricula);
             usuario.setNombre(nombre);
-
+            usuario.setHora(horaFinal);
             usuarioDAO.agregarUsuario(usuario);
 
             response.sendRedirect(request.getContextPath() + "/Controller?accion=listar");

@@ -4,6 +4,7 @@
  */
 package Model;
 
+import java.sql.Time;
 import java.util.Date;
 
 /**
@@ -17,18 +18,30 @@ public class Usuario {
     private String celular; 
     private String matricula; 
     private Date fecha_nac;
+    private Time hora;
 
     public Usuario() {
         
     }
 
-    public Usuario(String nombre, String correo, String apellidos, String celular, String matricula, Date fecha_nac) {
+    public Usuario(String nombre, String correo, String apellidos, String celular, String matricula, Date fecha_nac, Time hora) {
         this.nombre = nombre;
         this.correo = correo;
         this.apellidos = apellidos;
         this.celular = celular;
         this.matricula = matricula;
         this.fecha_nac = fecha_nac;
+        this.hora = hora;
+    }
+    
+    
+
+    public Time getHora() {
+        return hora;
+    }
+
+    public void setHora(Time hora) {
+        this.hora = hora;
     }
 
     public String getNombre() {

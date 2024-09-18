@@ -27,6 +27,8 @@
                 <input type="date" name="txt_fecha_nac"><br>
                 MATRICULA: <br>
                 <input type="text" name="txt_matricula"><br> 
+                HORA: <br>
+                <input type="time" name="txt_hora"><br>
                 <input type="submit" name="accion" value="Agregar">
             </form>
         </div>
