@@ -114,7 +114,15 @@ public class UsuarioDAO implements CrudUsuario{
 
     @Override
     public Boolean borrarUsuario(String matricula) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "DELETE FROM usuario where matricula LIKE '"+matricula+"'";
+        try {
+            conn = conexion.getConnectionBD();
+            ps = conn.prepareStatement(sql);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error al borrar los datos: "+e);
+        }
+        return false;         
     }
     
 }

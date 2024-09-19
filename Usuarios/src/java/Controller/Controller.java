@@ -123,6 +123,12 @@ public class Controller extends HttpServlet {
             
             response.sendRedirect(request.getContextPath()+"/Controller?accion=listar");
             return;
+        }else if (action.equalsIgnoreCase("eliminar")){
+            String matricula = request.getParameter("matricula");
+            usuario.setMatricula(matricula);
+            usuarioDAO.borrarUsuario(matricula);
+            response.sendRedirect(request.getContextPath()+"/Controller?accion=listar");
+            return;
         }
         RequestDispatcher vista = request.getRequestDispatcher(acceso);
         vista.forward(request, response);

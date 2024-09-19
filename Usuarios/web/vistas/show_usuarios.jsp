@@ -58,7 +58,7 @@
                     <td><%= user1.getHora()%></td>
                     <td>
                         <a href="Controller?accion=editar&matricula=<%= user1.getMatricula() %>">Editar</a>
-                        <a>Borrar</a>
+                        <a href="Controller?accion=eliminar&matricula=<%= user1.getMatricula() %>">Borrar</a>
                     </td>
                 </tr>
                 <%}%>
